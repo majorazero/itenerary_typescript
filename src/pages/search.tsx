@@ -35,7 +35,7 @@ const SearchPage: FunctionComponent<SearchProps> = ({ options }) => {
                 <div className="row pt-5">
                     <div className="col-12">
                         <button
-                            onClick={() => console.log(options)}
+                            onClick={options.submit}
                             className="btn btn-rounded btn-primary w-100">Submit</button>
                     </div>
                 </div>
