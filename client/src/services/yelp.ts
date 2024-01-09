@@ -3,22 +3,23 @@
 export const yelpStar = (rating: string): string => `src/img/small_${rating}.png`;
 
 export const myHotel = async (location: string):Promise<void> => {
-    console.log(location);
     const payload = {
-        location
+        location: location,
     }
 
     const options = {
         method: "POST",
+        query: payload,
         body: JSON.stringify(payload),
-        // headers: {
-        //     accept: 'application/json',
-        //     "Authorization": `Bearer ${yelpBearerKey}`,
-        // }
+        headers: {
+            "Content-Type": 'application/json',
+            // "Authorization": `Bearer ${yelpBearerKey}`,
+        }
     };
 
     const response = await fetch("/api/getYelpResults", options);
-    console.log("RESPONSE:", response.json());
+    const result = await response.json()
+    console.log("RESPONSE:", result);
     // const url:string = `${corsLink}https://api.yelp.com/v3/businesses/search?term=hotels&limit=4&location=${location}`
     // const response = await fetch(url, options);
 }
