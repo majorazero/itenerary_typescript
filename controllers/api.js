@@ -2,8 +2,6 @@ const { yelpBearerKey } = require("../global/global");
 
 module.exports = (app) => {    
     app.post("/api/getYelpResults", async (req, res) => {
-        console.log(yelpBearerKey, "DEBUG");
-
         const options = {
             method: "GET",
             headers: {
