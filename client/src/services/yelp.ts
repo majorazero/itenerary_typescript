@@ -1,4 +1,4 @@
-export const yelpStar = (rating: string): string => `src/img/small_${rating}.png`;
+export const yelpStar = (rating: string): string => `/img/small_${rating}.png`;
 
 export const myHotel = async (location: string):Promise<any> => {
     const payload = {
