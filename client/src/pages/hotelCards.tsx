@@ -27,7 +27,10 @@ const hotelCards: FunctionComponent<HotelCardsProps> = ({ options }) => {
             <div className="container card py-5">
                 <div className="row">
                     <div className='col-12'>
-                        Seems like we can't find any hotels at the location! Try again!
+                        <img className="error-img" src="img/oops.png" />
+                        <div>
+                            Seems like we can't find any hotels at the location! Try again!
+                        </div>
                     </div>
                 </div>
             </div>
