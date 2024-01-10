@@ -17,6 +17,7 @@ function App() {
   const [loading, setLoading] = useState<boolean>(false);
   const [hotelErr, setHotelErr] = useState<string|undefined>();
   const [hotels, setHotels] = useState<any[]>([]);
+  const [hotel, setHotel] = useState<any>();
 
   const handleSubmit = async ():Promise<void> => {
     const dayStaying: number|null = Utility.dayOutputter(startDate, endDate);
@@ -40,6 +41,11 @@ function App() {
     }
   }
 
+  const handleHotelSelect = (hotel:any):void => {
+    setHotel(hotel);
+    console.log(hotel, "set it!")
+  };
+
   const searchOptions: SearchOptions = {
     query,
     startDate,
@@ -53,7 +59,8 @@ function App() {
 
   const hotelCardsOptions: HotelCardsOptions = {
     hotels: hotels,
-    errMsg: hotelErr
+    errMsg: hotelErr,
+    setHotel: handleHotelSelect,
   }
 
   return (

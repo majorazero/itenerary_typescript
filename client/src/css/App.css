@@ -41,3 +41,20 @@
   background-image: url("https://images.unsplash.com/photo-1433838552652-f9a46b332c40?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   height: 100vw;
 }
+
+.hotel-card {
+  .hotel-name {
+    height: 2em;
+  }
+  .hotel-price {
+    height: 1em;
+  }
+  .hotel-pic {
+    height: 160px;
+    object-fit: contain;
+  }
+  .hotel-star {
+    height: 3vw;
+    object-fit: contain;
+  }
+}
