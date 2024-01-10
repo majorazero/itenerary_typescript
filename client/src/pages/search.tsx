@@ -36,7 +36,8 @@ const SearchPage: FunctionComponent<SearchProps> = ({ options }) => {
                     <div className="col-12">
                         <button
                             onClick={options.submit}
-                            className="btn btn-rounded btn-primary w-100">Submit</button>
+                            disabled={options.loading}
+                            className="btn btn-rounded btn-primary w-100">{options.loading ? "Loading..." : "Submit" }</button>
                     </div>
                 </div>
             </div>

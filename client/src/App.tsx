@@ -14,11 +14,14 @@ function App() {
   const [query, setQuery] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
-  // const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [hotelErr, setHotelErr] = useState<string|undefined>();
   const [hotels, setHotels] = useState<any[]>([]);
 
   const handleSubmit = async ():Promise<void> => {
     const dayStaying: number|null = Utility.dayOutputter(startDate, endDate);
+    setHotelErr(undefined);
+    setLoading(true);
 
     if (dayStaying === null) {
       alert("Please fill in some dates.");
@@ -27,8 +30,13 @@ function App() {
     } else if (query === "") {
       alert("You need to input a destination");
     } else {
-      const hotels = await Yelp.myHotel(query);
-      setHotels(hotels);
+      const result = await Yelp.myHotel(query);
+      setLoading(false);
+      if (result.businesses) {
+        setHotels(result.businesses);
+      } else {
+        setHotelErr(result.error.code)
+      }
     }
   }
 
@@ -36,6 +44,7 @@ function App() {
     query,
     startDate,
     endDate,
+    loading,
     setQuery,
     setEndDate,
     setStartDate,
@@ -43,7 +52,8 @@ function App() {
   }
 
   const hotelCardsOptions: HotelCardsOptions = {
-    hotels: hotels
+    hotels: hotels,
+    errMsg: hotelErr
   }
 
   return (

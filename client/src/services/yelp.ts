@@ -1,6 +1,6 @@
 export const yelpStar = (rating: string): string => `src/img/small_${rating}.png`;
 
-export const myHotel = async (location: string):Promise<any[]> => {
+export const myHotel = async (location: string):Promise<any> => {
     const payload = {
         location: location,
     }
@@ -17,7 +17,5 @@ export const myHotel = async (location: string):Promise<any[]> => {
     const response = await fetch("/api/getYelpResults", options);
     const result = await response.json()
 
-    console.log("found", result)
-
-    return result.data.businesses
+    return result.data
 }

@@ -14,10 +14,20 @@ const hotelCard: FunctionComponent<any> = (hotel) => (
 )
 
 const hotelCards: FunctionComponent<HotelCardsProps> = ({ options }) => {
+    if (options.errMsg) {
+        return (
+            <div className="container card py-5">
+                <div className="row">
+                    <div className='col-12'>
+                        Seems like we can't find any hotels at the location! Try again!
+                    </div>
+                </div>
+            </div>
+        )
+    }
     if (!options.hotels.length) return null;
-
     return (
-        <div className="container card py-5">
+        <div className="container card py-5 mx-auto w-100">
             <div className="row">
               {options.hotels.map((hotel: any) => hotelCard(hotel))}
             </div>
