@@ -4,6 +4,7 @@ import './css/App.css';
 
 import Search from "./pages/search";
 import HotelCards from "./pages/hotelCards";
+import TripPage from "./pages/tripPage";
 
 import { SearchOptions } from './interfaces/search';
 import * as Utility from "./services/util";
@@ -67,6 +68,7 @@ function App() {
     <div className="App app-background py-5">
       <Search options={searchOptions} />
       <HotelCards options={hotelCardsOptions} />
+      <TripPage />
     </div>
   );
 }
