@@ -7,9 +7,11 @@ import HotelCards from "./pages/hotelCards";
 import TripPage from "./pages/tripPage";
 
 import { SearchOptions } from './interfaces/search';
+import { HotelCardsOptions } from './interfaces/hotelCards';
+import { TripPageOptions } from "./interfaces/tripPage";
+
 import * as Utility from "./services/util";
 import * as Yelp from "./services/yelp";
-import { HotelCardsOptions } from './interfaces/hotelCards';
 
 function App() {
   const [query, setQuery] = useState<string>("");
@@ -64,11 +66,15 @@ function App() {
     setHotel: handleHotelSelect,
   }
 
+  const tripPageOptions: TripPageOptions = {
+    hotel: hotel,
+  }
+
   return (
     <div className="App app-background py-5">
       <Search options={searchOptions} />
       <HotelCards options={hotelCardsOptions} />
-      <TripPage />
+      <TripPage options={tripPageOptions} />
     </div>
   );
 }
