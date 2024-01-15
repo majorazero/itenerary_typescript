@@ -15,7 +15,7 @@ const hotelCard: FunctionComponent<any> = (hotel, setHotel) => (
         <small>Reviews: {hotel.review_count}</small>
         <h6>Phone: {hotel.phone}</h6>
         {hotel.location.display_address.map((line: string) => 
-            <small>{line}</small>
+            <small key={Math.random()}>{line}</small>
         )}
         <button className='mt-3 btn btn-primary' onClick={() => setHotel(hotel)}>Select</button>
     </div>
