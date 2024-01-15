@@ -1,8 +1,13 @@
+import { YelpQuery } from "../interfaces/utility";
+
 export const yelpStar = (rating: string): string => `/img/small_${rating}.png`;
 
-export const myHotel = async (location: string):Promise<any> => {
+export const getYelpResult = async (query: YelpQuery):Promise<any> => {
     const payload = {
-        location: location,
+        location: query.location,
+        term: query.term,
+        latitude: query.latitude,
+        longitude: query.longitude,
     }
 
     const options = {
