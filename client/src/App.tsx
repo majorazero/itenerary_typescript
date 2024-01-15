@@ -21,6 +21,8 @@ function App() {
   const [hotelErr, setHotelErr] = useState<string|undefined>();
   const [hotels, setHotels] = useState<any[]>([]);
   const [hotel, setHotel] = useState<any>();
+  const [restaurants, setRestaurants] = useState<any[]>([]);
+  const [entertainments, setEntertainments] = useState<any[]>([]);
 
   const handleSubmit = async ():Promise<void> => {
     const dayStaying: number|null = Utility.dayOutputter(startDate, endDate);
@@ -34,7 +36,10 @@ function App() {
     } else if (query === "") {
       alert("You need to input a destination");
     } else {
-      const result = await Yelp.myHotel(query);
+      const result = await Yelp.getYelpResult({
+        location: query,
+        term: "hotels",
+      });
       setLoading(false);
       if (result.businesses) {
         setHotels(result.businesses);
@@ -44,9 +49,21 @@ function App() {
     }
   }
 
-  const handleHotelSelect = (hotel:any):void => {
+  const handleHotelSelect = async (hotel:any):Promise<void> => {
     setHotel(hotel);
-    console.log(hotel, "set it!")
+    const { longitude, latitude } = hotel.coordinates;
+    const restaurantResult = await Yelp.getYelpResult({ 
+      longitude: longitude,
+      latitude: latitude,
+      term: "restaurant",
+    });
+    const entertainmentResult = await Yelp.getYelpResult({ 
+      longitude: longitude,
+      latitude: latitude,
+      term: "entertainment",
+    });
+    setRestaurants(restaurantResult);
+    setEntertainments(entertainmentResult);
   };
 
   const searchOptions: SearchOptions = {
@@ -67,7 +84,9 @@ function App() {
   }
 
   const tripPageOptions: TripPageOptions = {
-    hotel: hotel,
+    hotel,
+    entertainments,
+    restaurants
   }
 
   return (
