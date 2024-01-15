@@ -1,30 +1,27 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import {APIProvider, Map, Marker, AdvancedMarker, Pin, useDirectionsService} from '@vis.gl/react-google-maps';
 import { googleApiKey } from "../global"; // need to change this to be environment based
 
 import RowRenderer from "./rowRenderer";
 
-import { TripPageOptions } from "../interfaces/tripPage";
+import { TripPageOptions, DirectionServiceRequest } from "../interfaces/tripPage";
 
 type TripPageProps = {
     options: TripPageOptions;
 }
 
 const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
-    // const { 
-    //     directionsService,
-    //     directionsRenderer
-    // } = useDirectionsService({
-    //     // mapId: "target-map",
-    //     renderOnMap: true
-    // });
-    if (!options.hotel) return null;
+    const { 
+        directionsService,
+        directionsRenderer
+    } = useDirectionsService({
+        mapId: "target-map",
+        renderOnMap: true
+    });
+
+    console.log(directionsService,"????")
 
     const { entertainments, restaurants } = options;
-    const { longitude, latitude } = options.hotel.coordinates;
-
-    const long = longitude || 10.00678;
-    const lat = latitude || 53.54992;
 
     type MarkerColor = {
         background?: string,
@@ -47,8 +44,43 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         });
     }
 
+    useEffect(():void => {
+        const { hotel, entertainments } = options;
+        if (hotel && entertainments) {
+            const request:DirectionServiceRequest = {
+                origin: { lat: hotel.coordinates.latitude, lng: hotel.coordinates.longitude },
+                destination: { lat: hotel.coordinates.latitude, lng: hotel.coordinates.longitude },
+                waypoints: [],
+                travelMode: "DRIVING",
+            }
+            entertainments.businesses.forEach((place: any):void => {
+                request.waypoints.push(
+                    { 
+                        lat: place.coordinates.latitude,
+                        lng: place.coordinates.longitude 
+                    }
+                )
+            })
+            console.log(request, directionsService, "!!!")
+
+            directionsService?.route(request, (response, status) => {
+                console.log(response, status, "???")
+                if (status === "OK") {
+                    console.log(response)
+                }
+            })
+        }
+    }, [entertainments])
+
+    if (!options.hotel) return null;
+
+    const { longitude, latitude } = options.hotel.coordinates;
+
+    const long = longitude || 10.00678;
+    const lat = latitude || 53.54992;
+
     return (
-        <div className="container">
+        <div className="container my-5">
             <div className="row">
                 <div className="col-6 card">
                     <div className="map p-3">
