@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useEffect } from "react";
-import {APIProvider, Map, Marker, AdvancedMarker, Pin, useDirectionsService} from '@vis.gl/react-google-maps';
+import React, { FunctionComponent, useEffect, useState } from "react";
+import {APIProvider, Map, Marker, AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
 import { googleApiKey } from "../global"; // need to change this to be environment based
 
 import RowRenderer from "./rowRenderer";
@@ -10,16 +10,27 @@ type TripPageProps = {
     options: TripPageOptions;
 }
 
-const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
-    const { 
-        directionsService,
-        directionsRenderer
-    } = useDirectionsService({
-        mapId: "target-map",
-        renderOnMap: true
-    });
+const Trip: FunctionComponent<any> = ({ options }) => {
+    const map = useMap();
 
-    console.log(directionsService,"????")
+    useEffect(():void => {
+        if (!map) return;
+
+        const ds = new google.maps.DirectionsService();
+        const dd = new google.maps.DirectionsRenderer();
+
+        dd.setMap(map);
+
+        options.setDirectionService(ds);
+        options.setDirectionRenderer(dd);
+    },[map])
+
+    return null;
+}
+
+const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
+    const [directionService, setDirectionService] = useState<any>(null);
+    const [directionRenderer, setDirectionRenderer] = useState<any>(null);
 
     const { entertainments, restaurants } = options;
 
@@ -55,18 +66,20 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
             }
             entertainments.businesses.forEach((place: any):void => {
                 request.waypoints.push(
-                    { 
-                        lat: place.coordinates.latitude,
-                        lng: place.coordinates.longitude 
+                   { 
+                        location: { 
+                            lat: place.coordinates.latitude,
+                            lng: place.coordinates.longitude 
+                        }
                     }
                 )
             })
-            console.log(request, directionsService, "!!!")
+            console.log(request, directionService, directionRenderer, "!!!")
 
-            directionsService?.route(request, (response, status) => {
-                console.log(response, status, "???")
+            directionService.route(request, (response:any, status:any) => {
                 if (status === "OK") {
-                    console.log(response)
+
+                    directionRenderer.setDirections(response);
                 }
             })
         }
@@ -93,6 +106,7 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
                                 {markerRenderer(restaurants.businesses, { background: "#ADD8E6", glyphColor: "#05445E"})}
                                 {markerRenderer(entertainments.businesses, { background: "#FADCD9", glyphColor: "#F79489"})}
                             </Map>
+                            <Trip options={{ setDirectionRenderer, setDirectionService } }></Trip>
                         </APIProvider>
                     </div>
                 </div>
