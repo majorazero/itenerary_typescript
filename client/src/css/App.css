@@ -32,3 +32,10 @@
 .map {
   height: 50vw;
 }
+
+.entry-card {
+  transition: 0.3s;
+}
+.entry-card:hover {
+  background-color: #BC4F5E;
+}
