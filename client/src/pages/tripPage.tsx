@@ -3,11 +3,18 @@ import {APIProvider, Map, Marker, AdvancedMarker, Pin, useMap } from '@vis.gl/re
 import { googleApiKey } from "../global"; // need to change this to be environment based
 
 import RowRenderer from "./rowRenderer";
+import Itenerary from "./itenerary";
 
-import { TripPageOptions, DirectionServiceRequest } from "../interfaces/tripPage";
+import { TripPageOptions, DirectionServiceRequest, IteneraryOptions } from "../interfaces/tripPage";
 
 type TripPageProps = {
     options: TripPageOptions;
+}
+
+type MarkerColor = {
+    background?: string,
+    glyphColor?: string,
+    borderColor?: string,
 }
 
 const Trip: FunctionComponent<any> = ({ options }) => {
