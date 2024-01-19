@@ -1,12 +1,14 @@
-import React, { FunctionComponent, SetStateAction, Dispatch, useEffect } from "react";
+import React, { FunctionComponent, SetStateAction, Dispatch } from "react";
 import { Waypoint } from "../interfaces/googleMaps";
 
 type IteneraryProps = {
-    waypoints: Waypoint[],
-    setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
+    options: {
+        waypoints: Waypoint[],
+        setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
+    }
 }
 
-const Itenerary:FunctionComponent<any> = ({ options }) => {
+const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
     const { waypoints, setWaypoints } = options;
 
     const removeWaypoint = (index:number):void => {
@@ -17,7 +19,7 @@ const Itenerary:FunctionComponent<any> = ({ options }) => {
 
     const listRenderer = waypoints.map((waypoint:Waypoint, index: number) => {
         return (
-            <div className="card container entry-card py-2">
+            <div className="card container entry-card py-2" key={`${waypoint.data.id}-ite`}>
                 <div className="row">
                     <div className="col-2">
                         {index+1}.

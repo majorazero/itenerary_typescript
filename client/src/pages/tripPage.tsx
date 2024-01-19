@@ -5,7 +5,8 @@ import { googleApiKey } from "../global"; // need to change this to be environme
 import RowRenderer from "./rowRenderer";
 import Itenerary from "./itenerary";
 
-import { TripPageOptions, DirectionServiceRequest, IteneraryOptions } from "../interfaces/tripPage";
+import { TripPageOptions, IteneraryOptions } from "../interfaces/tripPage";
+import { route } from "../services/google";
 
 type TripPageProps = {
     options: TripPageOptions;
@@ -30,6 +31,7 @@ const Trip: FunctionComponent<any> = ({ options }) => {
 
         options.setDirectionService(ds);
         options.setDirectionRenderer(dd);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[map])
 
     return null;
@@ -39,7 +41,7 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
     const [directionService, setDirectionService] = useState<any>(null);
     const [directionRenderer, setDirectionRenderer] = useState<any>(null);
 
-    const { entertainments, restaurants, waypoints, setWaypoints } = options;
+    const { entertainments, restaurants, waypoints, setWaypoints, hotel } = options;
 
     const markerRenderer = (locations: any[] = [], color?: MarkerColor) => {
         return locations.map((location) => {
@@ -57,26 +59,13 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
     }
 
     useEffect(():void => {
-        const { hotel } = options;
-        if (!hotel) return;
-
-        const payload = waypoints.map(waypoint => {return {location: waypoint.location}});
-
-        const request:DirectionServiceRequest = {
-            origin: { lat: hotel.coordinates.latitude, lng: hotel.coordinates.longitude },
-            destination: { lat: hotel.coordinates.latitude, lng: hotel.coordinates.longitude },
-            waypoints: payload,
-            travelMode: "DRIVING",
-        }
-
-        directionService.route(request, (response:any, status:any) => {
-            if (status === "OK") {
-
-                console.log(response)
-
-                directionRenderer.setDirections(response);
-            }
-        })
+        route({
+            waypoints,
+            directionService,
+            directionRenderer,
+            hotel
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [waypoints])
 
     if (!options.hotel) return null;
