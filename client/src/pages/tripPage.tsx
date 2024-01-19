@@ -77,7 +77,10 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
 
     const iteneraryOptions:IteneraryOptions = {
         waypoints: waypoints,
-        setWaypoints: setWaypoints
+        setWaypoints: setWaypoints,
+        directionService,
+        directionRenderer,
+        hotel,
     }
 
     return (

@@ -6,10 +6,13 @@ type RouteOptions = {
     directionService: any,
     directionRenderer: any,
     hotel: any,
+    optimizeWaypoints?: boolean,
+    callback?: Function,
 }
 
 export const route = (options:RouteOptions):void => {
-    const { waypoints, directionService, directionRenderer, hotel } = options;
+    console.log('hit me')
+    const { waypoints, directionService, directionRenderer, hotel, optimizeWaypoints } = options;
 
     if (!hotel) return;
 
@@ -20,14 +23,16 @@ export const route = (options:RouteOptions):void => {
         destination: { lat: hotel.coordinates.latitude, lng: hotel.coordinates.longitude },
         waypoints: payload,
         travelMode: "DRIVING",
+        optimizeWaypoints: optimizeWaypoints || false,
     }
 
     directionService.route(request, (response:any, status:any) => {
         if (status === "OK") {
 
-            console.log(response)
-
             directionRenderer.setDirections(response);
+            if (options.callback) {
+                options.callback(response);
+            }
         }
     })
 }

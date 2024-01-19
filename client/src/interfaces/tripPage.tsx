@@ -17,6 +17,9 @@ export interface TripPageOptions {
 export interface IteneraryOptions {
     waypoints: Waypoint[],
     setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
+    hotel: any,
+    directionService: any,
+    directionRenderer: any,
 }
 
 export interface DirectionServiceRequest {
@@ -24,4 +27,5 @@ export interface DirectionServiceRequest {
     travelMode: any,
     destination: Location,
     origin: Location,
+    optimizeWaypoints?: boolean,
 }
