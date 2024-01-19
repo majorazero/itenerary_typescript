@@ -1,4 +1,4 @@
-import { YelpQuery } from "../interfaces/utility";
+import { YelpQuery } from "../interfaces/yelp";
 
 export const yelpStar = (rating: string): string => `/img/small_${rating}.png`;
 
