@@ -32,13 +32,7 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
     const [directionService, setDirectionService] = useState<any>(null);
     const [directionRenderer, setDirectionRenderer] = useState<any>(null);
 
-    const { entertainments, restaurants } = options;
-
-    type MarkerColor = {
-        background?: string,
-        glyphColor?: string,
-        borderColor?: string,
-    }
+    const { entertainments, restaurants, waypoints, setWaypoints } = options;
 
     const markerRenderer = (locations: any[] = [], color?: MarkerColor) => {
         return locations.map((location) => {
@@ -56,34 +50,27 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
     }
 
     useEffect(():void => {
-        const { hotel, entertainments } = options;
-        if (hotel && entertainments) {
-            const request:DirectionServiceRequest = {
-                origin: { lat: hotel.coordinates.latitude, lng: hotel.coordinates.longitude },
-                destination: { lat: hotel.coordinates.latitude, lng: hotel.coordinates.longitude },
-                waypoints: [],
-                travelMode: "DRIVING",
-            }
-            entertainments.businesses.forEach((place: any):void => {
-                request.waypoints.push(
-                   { 
-                        location: { 
-                            lat: place.coordinates.latitude,
-                            lng: place.coordinates.longitude 
-                        }
-                    }
-                )
-            })
-            console.log(request, directionService, directionRenderer, "!!!")
+        const { hotel } = options;
+        if (!hotel) return;
 
-            directionService.route(request, (response:any, status:any) => {
-                if (status === "OK") {
+        const payload = waypoints.map(waypoint => {return {location: waypoint.location}});
 
-                    directionRenderer.setDirections(response);
-                }
-            })
+        const request:DirectionServiceRequest = {
+            origin: { lat: hotel.coordinates.latitude, lng: hotel.coordinates.longitude },
+            destination: { lat: hotel.coordinates.latitude, lng: hotel.coordinates.longitude },
+            waypoints: payload,
+            travelMode: "DRIVING",
         }
-    }, [entertainments])
+
+        directionService.route(request, (response:any, status:any) => {
+            if (status === "OK") {
+
+                console.log(response)
+
+                directionRenderer.setDirections(response);
+            }
+        })
+    }, [waypoints])
 
     if (!options.hotel) return null;
 
@@ -91,6 +78,11 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
 
     const long = longitude || 10.00678;
     const lat = latitude || 53.54992;
+
+    const iteneraryOptions:IteneraryOptions = {
+        waypoints: waypoints,
+        setWaypoints: setWaypoints
+    }
 
     return (
         <div className="container my-5">
@@ -103,21 +95,22 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
                                 zoom={13}
                                 center={{lat: lat, lng: long}}>
                                 <Marker position={{lat: lat, lng: long}}></Marker>
-                                {markerRenderer(restaurants.businesses, { background: "#ADD8E6", glyphColor: "#05445E"})}
-                                {markerRenderer(entertainments.businesses, { background: "#FADCD9", glyphColor: "#F79489"})}
+                                {/* {markerRenderer(restaurants.businesses, { background: "#ADD8E6", glyphColor: "#05445E"})}
+                                {markerRenderer(entertainments.businesses, { background: "#FADCD9", glyphColor: "#F79489"})} */}
                             </Map>
                             <Trip options={{ setDirectionRenderer, setDirectionService } }></Trip>
                         </APIProvider>
                     </div>
+                    <Itenerary options={iteneraryOptions}/>
                 </div>
                 <div className="col-6 card py-3">
                     <div className="card">
                         <h2>Restaurants</h2>
-                        <RowRenderer entries={restaurants.businesses} />
+                        <RowRenderer entries={restaurants.businesses} waypoints={waypoints} setWaypoints={setWaypoints}/>
                     </div>
                     <div className="card">
                         <h2>Entertainment</h2>
-                        <RowRenderer entries={entertainments.businesses} />
+                        <RowRenderer entries={entertainments.businesses} waypoints={waypoints} setWaypoints={setWaypoints}/>
                     </div>
                 </div>
             </div>

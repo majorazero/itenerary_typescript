@@ -1,3 +1,6 @@
+import { Dispatch, SetStateAction } from "react";
+import { Waypoint } from "./googleMaps";
+
 type Location = {
     lat: number,
     lng: number,
@@ -6,7 +9,14 @@ type Location = {
 export interface TripPageOptions {
     hotel: any,
     restaurants: any,
-    entertainments: any
+    entertainments: any,
+    waypoints: Waypoint[],
+    setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
+}
+
+export interface IteneraryOptions {
+    waypoints: Waypoint[],
+    setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
 }
 
 export interface DirectionServiceRequest {

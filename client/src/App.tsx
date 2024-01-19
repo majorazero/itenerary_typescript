@@ -9,6 +9,7 @@ import TripPage from "./pages/tripPage";
 import { SearchOptions } from './interfaces/search';
 import { HotelCardsOptions } from './interfaces/hotelCards';
 import { TripPageOptions } from "./interfaces/tripPage";
+import { Waypoint } from './interfaces/googleMaps';
 
 import * as Utility from "./services/util";
 import * as Yelp from "./services/yelp";
@@ -23,6 +24,7 @@ function App() {
   const [hotel, setHotel] = useState<any>();
   const [restaurants, setRestaurants] = useState<any[]>([]);
   const [entertainments, setEntertainments] = useState<any[]>([]);
+  const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
 
   const handleSubmit = async ():Promise<void> => {
     const dayStaying: number|null = Utility.dayOutputter(startDate, endDate);
@@ -86,7 +88,9 @@ function App() {
   const tripPageOptions: TripPageOptions = {
     hotel,
     entertainments,
-    restaurants
+    restaurants,
+    waypoints,
+    setWaypoints,
   }
 
   return (
