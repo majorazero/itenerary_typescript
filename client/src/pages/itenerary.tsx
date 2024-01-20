@@ -8,7 +8,18 @@ type IteneraryProps = {
 }
 
 const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
-    const { waypoints, setWaypoints, hotel, directionRenderer, directionService, setPreventReroute } = options;
+    const { 
+        waypoints,
+        hotel,
+        directionRenderer,
+        directionService,
+        days,
+        currentDay,
+        setWaypoints,
+        setDays,
+        setCurrentDay,
+        setPreventReroute 
+    } = options;
 
     const removeWaypoint = (index:number):void => {
         const tempWaypoint = [...waypoints];
@@ -40,6 +51,18 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
         })
     }
 
+    const next = ():void => {
+        if (currentDay === days.length) return;
+
+        setCurrentDay(currentDay+1)
+    }
+
+    const prev = ():void => {
+        if (currentDay === 0) return;
+
+        setCurrentDay(currentDay-1)
+    }
+
     const listRenderer = waypoints.map((waypoint:Waypoint, index: number) => {
         return (
             <div className="card container entry-card py-2" key={`${waypoint.data.id}-${Math.random()}-ite`}>
@@ -59,9 +82,20 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
     });
     
     return (
-        <div>
+        <div className="container">
             <h2>Itenerary</h2>
-            <button className="btn btn-primary mb-3" onClick={optimize}>Optimize</button>
+            <div className="row mb-3">
+                <div className='col-5'>
+                    Day {currentDay + 1} of {days.length}
+                </div>
+                <button className="btn btn-primary col-2" onClick={prev}>
+                    {"<-"}
+                </button>
+                <button className="btn btn-primary col-2" onClick={next}>
+                    {"->"}
+                </button>
+                <button className="btn btn-primary col-3" onClick={optimize}>Optimize</button>
+            </div>
             {listRenderer}
         </div>
     );

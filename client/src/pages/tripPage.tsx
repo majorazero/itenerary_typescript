@@ -45,9 +45,13 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         entertainments,
         restaurants, 
         waypoints, 
-        setWaypoints, 
         hotel,
         preventReroute,
+        days,
+        currentDay,
+        setDays,
+        setCurrentDay,
+        setWaypoints, 
         setPreventReroute,
     } = options;
 
@@ -67,6 +71,16 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
     }
 
     useEffect(():void => {
+        console.log("I'm heppening!")
+        setWaypoints(days[currentDay] || [])
+
+    }, [currentDay])
+
+    useEffect(():void => {
+        const newDays = [...days];
+        newDays[currentDay] = waypoints;
+        setDays(newDays);
+
         if (preventReroute) {
             setPreventReroute(false);
             return;
@@ -90,10 +104,14 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
 
     const iteneraryOptions:IteneraryOptions = {
         waypoints: waypoints,
-        setWaypoints: setWaypoints,
         directionService,
         directionRenderer,
         hotel,
+        days,
+        currentDay,
+        setDays: setDays,
+        setCurrentDay: setCurrentDay,
+        setWaypoints: setWaypoints,
         setPreventReroute,
     }
 
