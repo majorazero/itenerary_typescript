@@ -8,7 +8,7 @@ type IteneraryProps = {
 }
 
 const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
-    const { waypoints, setWaypoints, hotel, directionRenderer, directionService } = options;
+    const { waypoints, setWaypoints, hotel, directionRenderer, directionService, setPreventReroute } = options;
 
     const removeWaypoint = (index:number):void => {
         const tempWaypoint = [...waypoints];
@@ -26,6 +26,7 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
                 newWp[i] = waypoints[newOrder[i]]
             }
 
+            setPreventReroute(true);
             setWaypoints(newWp)
         }
 
@@ -41,7 +42,7 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
 
     const listRenderer = waypoints.map((waypoint:Waypoint, index: number) => {
         return (
-            <div className="card container entry-card py-2" key={`${waypoint.data.id}-ite`}>
+            <div className="card container entry-card py-2" key={`${waypoint.data.id}-${Math.random()}-ite`}>
                 <div className="row">
                     <div className="col-2">
                         {index+1}.

@@ -11,6 +11,8 @@ export interface TripPageOptions {
     restaurants: any,
     entertainments: any,
     waypoints: Waypoint[],
+    preventReroute: boolean,
+    setPreventReroute: Dispatch<SetStateAction<boolean>>,
     setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
 }
 
@@ -20,6 +22,7 @@ export interface IteneraryOptions {
     hotel: any,
     directionService: any,
     directionRenderer: any,
+    setPreventReroute: Dispatch<SetStateAction<boolean>>,
 }
 
 export interface DirectionServiceRequest {

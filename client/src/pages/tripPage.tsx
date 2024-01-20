@@ -41,7 +41,15 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
     const [directionService, setDirectionService] = useState<any>(null);
     const [directionRenderer, setDirectionRenderer] = useState<any>(null);
 
-    const { entertainments, restaurants, waypoints, setWaypoints, hotel } = options;
+    const { 
+        entertainments,
+        restaurants, 
+        waypoints, 
+        setWaypoints, 
+        hotel,
+        preventReroute,
+        setPreventReroute,
+    } = options;
 
     const markerRenderer = (locations: any[] = [], color?: MarkerColor) => {
         return locations.map((location) => {
@@ -59,6 +67,11 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
     }
 
     useEffect(():void => {
+        if (preventReroute) {
+            setPreventReroute(false);
+            return;
+        }
+
         route({
             waypoints,
             directionService,
@@ -81,6 +94,7 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         directionService,
         directionRenderer,
         hotel,
+        setPreventReroute,
     }
 
     return (

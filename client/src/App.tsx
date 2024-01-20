@@ -25,6 +25,7 @@ function App() {
   const [restaurants, setRestaurants] = useState<any[]>([]);
   const [entertainments, setEntertainments] = useState<any[]>([]);
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
+  const [preventReroute, setPreventReroute] = useState<boolean>(false);
 
   const handleSubmit = async ():Promise<void> => {
     const dayStaying: number|null = Utility.dayOutputter(startDate, endDate);
@@ -90,6 +91,8 @@ function App() {
     entertainments,
     restaurants,
     waypoints,
+    preventReroute,
+    setPreventReroute,
     setWaypoints,
   }
 
