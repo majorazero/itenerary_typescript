@@ -18,7 +18,8 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
         setWaypoints,
         setDays,
         setCurrentDay,
-        setPreventReroute 
+        setPreventReroute,
+        handleSave,
     } = options;
 
     const removeWaypoint = (index:number):void => {
@@ -85,16 +86,17 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
         <div className="container">
             <h2>Itenerary</h2>
             <div className="row mb-3">
-                <div className='col-5'>
+                <div className='col-4'>
                     Day {currentDay + 1} of {days.length}
                 </div>
-                <button className="btn btn-primary col-2" onClick={prev}>
-                    {"<-"}
+                <button className="btn btn-primary col-1" onClick={prev}>
+                    {"<"}
                 </button>
-                <button className="btn btn-primary col-2" onClick={next}>
-                    {"->"}
+                <button className="btn btn-primary col-1" onClick={next}>
+                    {">"}
                 </button>
                 <button className="btn btn-primary col-3" onClick={optimize}>Optimize</button>
+                <button className="btn btn-primary col-3" onClick={handleSave}>Save Trip</button>
             </div>
             {listRenderer}
         </div>

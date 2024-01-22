@@ -9,4 +9,5 @@ export interface SearchOptions {
     setStartDate: Dispatch<SetStateAction<string>>,
     setEndDate: Dispatch<SetStateAction<string>>,
     submit: () => void,
+    handleLoad: () => void,
 }

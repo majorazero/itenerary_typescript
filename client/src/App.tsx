@@ -13,6 +13,7 @@ import { Waypoint } from './interfaces/googleMaps';
 
 import * as Utility from "./services/util";
 import * as Yelp from "./services/yelp";
+import * as Trips from "./services/trips";
 
 function App() {
   const [query, setQuery] = useState<string>("");
@@ -72,6 +73,36 @@ function App() {
     setEntertainments(entertainmentResult);
   };
 
+  const handleLoad = async ():Promise<void> => {
+    const query = {
+      id: "65ae036371ff1d603c7c2490", // dummy for now
+    };
+
+    const result = await Trips.getTrip(query);
+    setStartDate(result.startDate);
+    setEndDate(result.endDate);
+    await handleHotelSelect(result.hotel)
+    setDays(result.days);
+    setCurrentDay(0);
+    setWaypoints(result.days[currentDay] || [])
+  }
+
+  const handleSave = async():Promise<void> => {
+    const query = {
+      name: "Test Trip",
+      days: days,
+      hotel: hotel,
+      startDate,
+      endDate,
+    }
+    const result = await Trips.saveTrip(query);
+  }
+
+  useEffect(():void => {
+    console.log("am i firing?")
+    setWaypoints(days[currentDay] || [])
+}, [currentDay])
+
   const searchOptions: SearchOptions = {
     query,
     startDate,
@@ -81,6 +112,7 @@ function App() {
     setEndDate,
     setStartDate,
     submit: handleSubmit,
+    handleLoad: handleLoad,
   }
 
   const hotelCardsOptions: HotelCardsOptions = {
@@ -101,6 +133,7 @@ function App() {
     setCurrentDay,
     setPreventReroute,
     setWaypoints,
+    handleSave: handleSave,
   }
 
   return (

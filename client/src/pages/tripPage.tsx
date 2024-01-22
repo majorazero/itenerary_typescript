@@ -53,6 +53,7 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         setCurrentDay,
         setWaypoints, 
         setPreventReroute,
+        handleSave,
     } = options;
 
     const markerRenderer = (locations: any[] = [], color?: MarkerColor) => {

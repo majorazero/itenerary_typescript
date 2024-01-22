@@ -18,6 +18,7 @@ export interface TripPageOptions {
     setCurrentDay: Dispatch<SetStateAction<number>>,
     setPreventReroute: Dispatch<SetStateAction<boolean>>,
     setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
+    handleSave: () => void,
 }
 
 export interface IteneraryOptions {
@@ -31,6 +32,7 @@ export interface IteneraryOptions {
     setPreventReroute: Dispatch<SetStateAction<boolean>>,
     setDays: Dispatch<SetStateAction<Waypoint[][]>>,
     setCurrentDay: Dispatch<SetStateAction<number>>,
+    handleSave: () => void,
 }
 
 export interface DirectionServiceRequest {
