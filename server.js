@@ -7,6 +7,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+require("dotenv").config();
 require("./controllers/index.js")(app);
 
 app.get("*", (req, res) => {

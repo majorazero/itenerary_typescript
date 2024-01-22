@@ -1,12 +1,10 @@
-const { yelpBearerKey } = require("../global/global");
-
 module.exports = (app) => {    
     app.post("/api/getYelpResults", async (req, res) => {
         const options = {
             method: "GET",
             headers: {
                 "Content-Type": 'application/json',
-                "Authorization": `Bearer ${yelpBearerKey}`,
+                "Authorization": `Bearer ${process.env.YELP_BEARER_KEY}`,
             }
         }
         const { term, location, longitude, latitude } = req.body;
