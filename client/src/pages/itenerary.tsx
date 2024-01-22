@@ -1,4 +1,4 @@
-import React, { FunctionComponent, SetStateAction, Dispatch } from "react";
+import React, { FunctionComponent } from "react";
 import { Waypoint } from "../interfaces/googleMaps";
 import { IteneraryOptions } from "../interfaces/tripPage";
 import { route } from "../services/google";
@@ -41,7 +41,7 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
             setWaypoints(newWp)
         }
 
-        const response = route({
+        route({
             waypoints,
             directionRenderer,
             directionService,

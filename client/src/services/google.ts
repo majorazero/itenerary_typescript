@@ -11,7 +11,6 @@ type RouteOptions = {
 }
 
 export const route = (options:RouteOptions):void => {
-    console.log('hit me')
     const { waypoints, directionService, directionRenderer, hotel, optimizeWaypoints } = options;
 
     if (!hotel) return;
