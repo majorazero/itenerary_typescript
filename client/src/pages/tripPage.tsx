@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import {APIProvider, Map, Marker, AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
+import {APIProvider, Map, Marker, useMap } from '@vis.gl/react-google-maps';
 import { googleApiKey } from "../global"; // need to change this to be environment based
 
 import RowRenderer from "./rowRenderer";
@@ -12,11 +12,11 @@ type TripPageProps = {
     options: TripPageOptions;
 }
 
-type MarkerColor = {
-    background?: string,
-    glyphColor?: string,
-    borderColor?: string,
-}
+// type MarkerColor = {
+//     background?: string,
+//     glyphColor?: string,
+//     borderColor?: string,
+// }
 
 const Trip: FunctionComponent<any> = ({ options }) => {
     const map = useMap();
@@ -56,26 +56,20 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         handleSave,
     } = options;
 
-    const markerRenderer = (locations: any[] = [], color?: MarkerColor) => {
-        return locations.map((location) => {
-            const { longitude, latitude } = location.coordinates;
-            return (
-                <AdvancedMarker key={location.name} title={location.name} position={{lat: latitude, lng: longitude }}>
-                    <Pin
-                        background={color?.background}
-                        glyphColor={color?.glyphColor}
-                        borderColor={color?.borderColor}>
-                    </Pin>
-                </AdvancedMarker>
-            )
-        });
-    }
-
-    useEffect(():void => {
-        console.log("I'm heppening!")
-        setWaypoints(days[currentDay] || [])
-
-    }, [currentDay])
+    // const markerRenderer = (locations: any[] = [], color?: MarkerColor) => {
+    //     return locations.map((location) => {
+    //         const { longitude, latitude } = location.coordinates;
+    //         return (
+    //             <AdvancedMarker key={location.name} title={location.name} position={{lat: latitude, lng: longitude }}>
+    //                 <Pin
+    //                     background={color?.background}
+    //                     glyphColor={color?.glyphColor}
+    //                     borderColor={color?.borderColor}>
+    //                 </Pin>
+    //             </AdvancedMarker>
+    //         )
+    //     });
+    // }
 
     useEffect(():void => {
         const newDays = [...days];
@@ -104,16 +98,16 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
     const lat = latitude || 53.54992;
 
     const iteneraryOptions:IteneraryOptions = {
-        waypoints: waypoints,
+        waypoints,
         directionService,
         directionRenderer,
         hotel,
         days,
         currentDay,
-        setDays: setDays,
-        setCurrentDay: setCurrentDay,
-        setWaypoints: setWaypoints,
+        setCurrentDay,
+        setWaypoints,
         setPreventReroute,
+        handleSave,
     }
 
     return (

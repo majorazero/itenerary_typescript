@@ -30,7 +30,6 @@ export interface IteneraryOptions {
     currentDay: number,
     setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
     setPreventReroute: Dispatch<SetStateAction<boolean>>,
-    setDays: Dispatch<SetStateAction<Waypoint[][]>>,
     setCurrentDay: Dispatch<SetStateAction<number>>,
     handleSave: () => void,
 }

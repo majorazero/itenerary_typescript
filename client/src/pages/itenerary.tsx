@@ -16,7 +16,6 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
         days,
         currentDay,
         setWaypoints,
-        setDays,
         setCurrentDay,
         setPreventReroute,
         handleSave,
