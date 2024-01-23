@@ -79,7 +79,7 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
     const legRenderer = (leg: any) => {
         if(!leg) return null;
         return(
-            <div className="card container py-2">
+            <div className="card py-2">
                 <div className="row">
                     <div className="col-2">
                         Drive:
@@ -99,7 +99,7 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
         return (
             <div key={`${waypoint.data.id}-${Math.random()}-ite`}>
                 {legRenderer(tripLegs[index])}
-                <div className="card container entry-card py-2">
+                <div className="card entry-card py-2">
                     <div className="row">
                         <div className="col-2">
                             {index+1}.
@@ -120,7 +120,7 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
     
     const endpointCard = (tag: string) => {
         return (
-            <div className="card container py-2 endpoint-card" key={`${hotel.id}-${Math.random()}-${tag}-ite`}>
+            <div className="card py-2 endpoint-card" key={`${hotel.id}-${Math.random()}-${tag}-ite`}>
             <div className="row">
                 <div className="col-2">
                     {tag}:
