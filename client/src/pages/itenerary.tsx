@@ -30,6 +30,15 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
         setWaypoints(tempWaypoint)
     }
 
+    const moveWaypoint = (index:number, up:boolean):void => {
+        const newIndex = up ? index-1 : index+1;
+        const tempWaypoint = [...waypoints];
+        tempWaypoint[newIndex] = tempWaypoint[index];
+        tempWaypoint[index] = waypoints[newIndex];
+
+        setWaypoints(tempWaypoint)
+    }
+
     const optimize = ():void => {
         const handlePostRoute = (response: any):void => {
             const newOrder = response.routes[0].waypoint_order;
@@ -88,22 +97,24 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
 
     const listRenderer = waypoints.map((waypoint:Waypoint, index: number) => {
         return (
-            <>
+            <div key={`${waypoint.data.id}-${Math.random()}-ite`}>
                 {legRenderer(tripLegs[index])}
-                <div className="card container entry-card py-2" key={`${waypoint.data.id}-${Math.random()}-ite`}>
+                <div className="card container entry-card py-2">
                     <div className="row">
                         <div className="col-2">
                             {index+1}.
                         </div>
-                        <div className="col-7">
+                        <div className="col-5">
                             <div>{waypoint.data.name}</div>
                         </div>
-                        <div className="col-3">
-                            <button className="btn btn-danger" onClick={() => removeWaypoint(index)}>Remove</button>
+                        <div className="col-5">
+                            {index > 0 && <button className="btn btn-success mx-1" onClick={() => moveWaypoint(index, true)}>&#9650;</button>}
+                            {index < waypoints.length-1 && <button className="btn btn-success mx-1" onClick={() => moveWaypoint(index, false)}>&#9660;</button>}
+                            <button className="btn btn-danger mx-1" onClick={() => removeWaypoint(index)}>X</button>
                         </div>
                     </div>
                 </div>
-            </>
+            </div>
         )
     });
     
