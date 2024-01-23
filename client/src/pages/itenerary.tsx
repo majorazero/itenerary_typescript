@@ -16,6 +16,8 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
         days,
         currentDay,
         tripId,
+        tripLegs,
+        setTripLegs,
         setWaypoints,
         setCurrentDay,
         setPreventReroute,
@@ -48,6 +50,7 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
             directionService,
             hotel,
             optimizeWaypoints: true,
+            setTripLegs,
             callback: handlePostRoute
         })
     }
@@ -64,24 +67,61 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
         setCurrentDay(currentDay-1)
     }
 
-    const listRenderer = waypoints.map((waypoint:Waypoint, index: number) => {
-        return (
-            <div className="card container entry-card py-2" key={`${waypoint.data.id}-${Math.random()}-ite`}>
+    const legRenderer = (leg: any) => {
+        if(!leg) return null;
+        return(
+            <div className="card container py-2">
                 <div className="row">
                     <div className="col-2">
-                        {index+1}.
+                        Drive:
                     </div>
-                    <div className="col-7">
-                        <div>{waypoint.data.name}</div>
+                    <div className="col-5">
+                        {leg.distance.text}
                     </div>
-                    <div className="col-3">
-                        <button className="btn btn-danger" onClick={() => removeWaypoint(index)}>Remove</button>
+                    <div className="col-5">
+                        {leg.duration.text}
                     </div>
                 </div>
             </div>
         )
+    }
+
+    const listRenderer = waypoints.map((waypoint:Waypoint, index: number) => {
+        return (
+            <>
+                {legRenderer(tripLegs[index])}
+                <div className="card container entry-card py-2" key={`${waypoint.data.id}-${Math.random()}-ite`}>
+                    <div className="row">
+                        <div className="col-2">
+                            {index+1}.
+                        </div>
+                        <div className="col-7">
+                            <div>{waypoint.data.name}</div>
+                        </div>
+                        <div className="col-3">
+                            <button className="btn btn-danger" onClick={() => removeWaypoint(index)}>Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
     });
     
+    const endpointCard = (tag: string) => {
+        return (
+            <div className="card container py-2 endpoint-card" key={`${hotel.id}-${Math.random()}-${tag}-ite`}>
+            <div className="row">
+                <div className="col-2">
+                    {tag}:
+                </div>
+                <div className="col-7">
+                    <div>{hotel.name}</div>
+                </div>
+            </div>
+        </div>
+        )
+    }
+
     return (
         <div className="container">
             <h2>Itenerary</h2>
@@ -99,7 +139,10 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
                 <button className="btn btn-primary col-3" onClick={optimize}>Optimize</button>
                 <button className="btn btn-primary col-3" onClick={handleSave}>Save Trip</button>
             </div>
+            {endpointCard("Start")}
             {listRenderer}
+            {legRenderer(tripLegs[tripLegs.length-1])}
+            {endpointCard("End")}
         </div>
     );
 }

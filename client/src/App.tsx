@@ -26,6 +26,7 @@ function App() {
   const [restaurants, setRestaurants] = useState<any[]>([]);
   const [entertainments, setEntertainments] = useState<any[]>([]);
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
+  const [tripLegs, setTripLegs] = useState<any[]>([]);
   const [preventReroute, setPreventReroute] = useState<boolean>(false);
   const [days, setDays] = useState<Waypoint[][]>([]);
   const [currentDay, setCurrentDay] = useState<number>(0);
@@ -114,7 +115,6 @@ function App() {
   }
 
   useEffect(():void => {
-    console.log("am i firing?")
     setWaypoints(days[currentDay] || [])
 }, [currentDay])
 
@@ -147,6 +147,8 @@ function App() {
     currentDay,
     days,
     tripId,
+    tripLegs,
+    setTripLegs,
     setDays,
     setCurrentDay,
     setPreventReroute,

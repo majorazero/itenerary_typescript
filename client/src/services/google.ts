@@ -1,17 +1,26 @@
 import { DirectionServiceRequest } from "../interfaces/tripPage";
 import { Waypoint } from "../interfaces/googleMaps";
+import { Dispatch, SetStateAction } from "react";
 
 type RouteOptions = {
     waypoints: Waypoint[],
     directionService: any,
     directionRenderer: any,
     hotel: any,
+    setTripLegs: Dispatch<SetStateAction<any[]>>,
     optimizeWaypoints?: boolean,
     callback?: Function,
 }
 
 export const route = (options:RouteOptions):void => {
-    const { waypoints, directionService, directionRenderer, hotel, optimizeWaypoints } = options;
+    const { 
+        waypoints,
+        directionService,
+        directionRenderer,
+        hotel,
+        optimizeWaypoints,
+        setTripLegs,
+    } = options;
 
     if (!hotel) return;
 
@@ -27,7 +36,7 @@ export const route = (options:RouteOptions):void => {
 
     directionService.route(request, (response:any, status:any) => {
         if (status === "OK") {
-            console.log(response)
+            setTripLegs(response.routes[0].legs)
             directionRenderer.setDirections(response);
             if (options.callback) {
                 options.callback(response);

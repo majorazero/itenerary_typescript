@@ -50,6 +50,8 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         days,
         currentDay,
         tripId,
+        tripLegs,
+        setTripLegs,
         setDays,
         setCurrentDay,
         setWaypoints, 
@@ -86,7 +88,8 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
             waypoints,
             directionService,
             directionRenderer,
-            hotel
+            hotel,
+            setTripLegs,
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [waypoints])
@@ -106,6 +109,8 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         days,
         currentDay,
         tripId,
+        tripLegs,
+        setTripLegs,
         setCurrentDay,
         setWaypoints,
         setPreventReroute,
@@ -122,7 +127,6 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
                                 mapId="target-map"
                                 zoom={13}
                                 center={{lat: lat, lng: long}}>
-                                <Marker position={{lat: lat, lng: long}}></Marker>
                                 {/* {markerRenderer(restaurants.businesses, { background: "#ADD8E6", glyphColor: "#05445E"})}
                                 {markerRenderer(entertainments.businesses, { background: "#FADCD9", glyphColor: "#F79489"})} */}
                             </Map>
