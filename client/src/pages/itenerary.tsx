@@ -15,6 +15,7 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
         directionService,
         days,
         currentDay,
+        tripId,
         setWaypoints,
         setCurrentDay,
         setPreventReroute,
@@ -84,7 +85,8 @@ const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
     return (
         <div className="container">
             <h2>Itenerary</h2>
-            <div className="row mb-3">
+            {tripId && <small>Trip Saved! ID: {tripId}</small>}
+            <div className="row my-3">
                 <div className='col-4'>
                     Day {currentDay + 1} of {days.length}
                 </div>

@@ -6,6 +6,7 @@ type SaveTripQuery = {
     hotel: any,
     startDate: string,
     endDate: string,
+    tripId?: string,
 }
 
 type LoadTripQuery = {
@@ -38,7 +39,8 @@ export const getTrip = async(payload: LoadTripQuery):Promise<any> => {
     }
 
     const response = await fetch("/trips/getTrip", options);
+    console.log(response)
     const result = await response.json();
 
-    return result;
+    return [response.status, result];
 };

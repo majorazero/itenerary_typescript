@@ -10,6 +10,8 @@ const SearchPage: FunctionComponent<SearchProps> = ({ options }) => {
         startDate,
         endDate,
         loading,
+        idQuery,
+        setIdQuery,
         setQuery,
         setStartDate,
         setEndDate,
@@ -19,7 +21,13 @@ const SearchPage: FunctionComponent<SearchProps> = ({ options }) => {
     return (
         <div className="container card py-5">
             <div className="row">
-                <div className="col-3">
+                <div className="col-12 text-start">
+                    <span className='mx-3'>Have a previous trip saved?</span>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-6 text-start">
+                    <input value={idQuery} onChange={(e) => setIdQuery(e.target.value)} placeholder="Trip Id..." className="mx-3"/>
                     <button className='btn btn-primary' onClick={handleLoad}>Load Trip</button>
                 </div>
             </div>

@@ -29,6 +29,8 @@ function App() {
   const [preventReroute, setPreventReroute] = useState<boolean>(false);
   const [days, setDays] = useState<Waypoint[][]>([]);
   const [currentDay, setCurrentDay] = useState<number>(0);
+  const [idQuery, setIdQuery] = useState<string>("");
+  const [tripId, setTripId] = useState<string|undefined>();
 
   const handleSubmit = async ():Promise<void> => {
     const dayStaying: number|null = Utility.dayOutputter(startDate, endDate);
@@ -75,16 +77,26 @@ function App() {
 
   const handleLoad = async ():Promise<void> => {
     const query = {
-      id: "65ae036371ff1d603c7c2490", // dummy for now
+      id: idQuery,
+      // id: "65aefe9b71ff1d603c7c251d", // dummy for now
     };
 
-    const result = await Trips.getTrip(query);
-    setStartDate(result.startDate);
-    setEndDate(result.endDate);
-    await handleHotelSelect(result.hotel)
-    setDays(result.days);
-    setCurrentDay(0);
-    setWaypoints(result.days[currentDay] || [])
+    const response = await Trips.getTrip(query);
+
+    if (response[0] === 200) {
+      const result = response[1];
+
+      setStartDate(result.startDate);
+      setEndDate(result.endDate);
+      await handleHotelSelect(result.hotel)
+      setTripId(result._id)
+      setDays(result.days);
+      setCurrentDay(0);
+      setWaypoints(result.days[currentDay] || [])
+    } else {
+      alert("Sorry can't find a trip with that trip id!")
+      setIdQuery("");
+    }
   }
 
   const handleSave = async():Promise<void> => {
@@ -94,8 +106,11 @@ function App() {
       hotel: hotel,
       startDate,
       endDate,
+      tripId,
     }
+
     const result = await Trips.saveTrip(query);
+    setTripId(result._id)
   }
 
   useEffect(():void => {
@@ -108,6 +123,8 @@ function App() {
     startDate,
     endDate,
     loading,
+    idQuery,
+    setIdQuery,
     setQuery,
     setEndDate,
     setStartDate,
@@ -129,6 +146,7 @@ function App() {
     preventReroute,
     currentDay,
     days,
+    tripId,
     setDays,
     setCurrentDay,
     setPreventReroute,

@@ -27,7 +27,7 @@ export const route = (options:RouteOptions):void => {
 
     directionService.route(request, (response:any, status:any) => {
         if (status === "OK") {
-
+            console.log(response)
             directionRenderer.setDirections(response);
             if (options.callback) {
                 options.callback(response);

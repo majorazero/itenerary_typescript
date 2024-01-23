@@ -5,6 +5,8 @@ export interface SearchOptions {
     startDate: string,
     endDate: string,
     loading: boolean,
+    idQuery: string,
+    setIdQuery:  Dispatch<SetStateAction<string>>,
     setQuery: Dispatch<SetStateAction<string>>,
     setStartDate: Dispatch<SetStateAction<string>>,
     setEndDate: Dispatch<SetStateAction<string>>,
