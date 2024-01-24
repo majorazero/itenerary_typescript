@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import {APIProvider, Map, Marker, useMap } from '@vis.gl/react-google-maps';
-import { googleApiKey } from "../global"; // need to change this to be environment based
 
 import RowRenderer from "./rowRenderer";
 import Itenerary from "./itenerary";
@@ -117,12 +116,14 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         handleSave,
     }
 
+    console.log("hello", process.env);
+
     return (
         <div className="container my-5">
             <div className="row">
                 <div className="col-6 card">
                     <div className="map p-3">
-                        <APIProvider apiKey={googleApiKey}>
+                        <APIProvider apiKey={process.env.REACT_APP_GOOGLE_API_KEY || ""}>
                             <Map 
                                 mapId="target-map"
                                 zoom={13}
