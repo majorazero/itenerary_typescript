@@ -79,7 +79,6 @@ function App() {
   const handleLoad = async ():Promise<void> => {
     const query = {
       id: idQuery,
-      // id: "65aefe9b71ff1d603c7c251d", // dummy for now
     };
 
     const response = await Trips.getTrip(query);
