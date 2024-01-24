@@ -116,8 +116,6 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         handleSave,
     }
 
-    console.log("hello", process.env);
-
     return (
         <div className="container my-5">
             <div className="row">
