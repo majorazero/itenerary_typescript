@@ -8,6 +8,10 @@ const mongoose = require("mongoose");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
 require("dotenv").config();
 require("./controllers/index.js")(app);
 
