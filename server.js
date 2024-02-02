@@ -19,7 +19,8 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-mongoose.connect(process.env.mongodburi || "mongodb://localhost:27017/itenerary");
+const targetAddress = process.env.mongopass ? `mongodb+srv://dhsu:${encodeURIComponent(process.env.mongopass)}@itenerary.jtflpbe.mongodb.net/?retryWrites=true&w=majority` : "mongodb://localhost:27017/itenerary";
+mongoose.connect(targetAddress);
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
