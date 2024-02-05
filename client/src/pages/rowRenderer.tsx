@@ -22,10 +22,22 @@ const RowRenderer: FunctionComponent<RowProps> = ({ entries, waypoints, setWaypo
         setWaypoints(tempWaypoint);
     }
 
+    const hasBeenSelected = (id: string):boolean => {
+        for (const waypoint of waypoints) {
+            if (waypoint.data.id === id) return true;
+        }
+        
+        return false
+    };
+
     return (
         <div>
             {entries.map((entry) => 
-                <div className="card container entry-card py-2" key={entry.id} role="button" onClick={() => handleOnClick(entry)}>
+                <div 
+                    className={`card container entry-card py-2 ${hasBeenSelected(entry.id) && "selected"}`}
+                    key={entry.id}
+                    role="button"
+                    onClick={() => handleOnClick(entry)}>
                     <div className="row">
                         <div className="col-3">
                             <img className="img-fluid" src={entry.image_url} alt={entry.name}></img>

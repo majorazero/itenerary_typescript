@@ -42,3 +42,7 @@
 .endpoint-card {
   background-color: #BED685;
 }
+
+.entry-card.selected {
+  background-color: #BC4F5E;
+}
