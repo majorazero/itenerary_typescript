@@ -22,5 +22,7 @@ export const getYelpResult = async (query: YelpQuery):Promise<any> => {
     const response = await fetch("/api/getYelpResults", options);
     const result = await response.json()
 
+    console.log(result)
+
     return result.data
 }
