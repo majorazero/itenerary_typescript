@@ -7,14 +7,17 @@ module.exports = (app) => {
                 "Authorization": `Bearer ${process.env.YELP_BEARER_KEY}`,
             }
         }
-        const { term, location, longitude, latitude } = req.body;
-        let query = `term=${term}&sort_by=best_match&limit=15&offset=4`;
+        const { term, location, longitude, latitude, limit, offset } = req.body;
+        let query = `term=${term}&sort_by=best_match`;
         
         if (location) {
             query += `&location=${location}`;
         } else {
             query += `&longitude=${longitude}&latitude=${latitude}`;
         }
+
+        if (limit) query += `&limit=${limit}`;
+        if (offset) query += `&offset=${offset}`;
 
         console.log(query)
 

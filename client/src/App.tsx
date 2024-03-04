@@ -48,6 +48,7 @@ function App() {
       const result = await Yelp.getYelpResult({
         location: query,
         term: "hotels",
+        limit: 4,
       });
       setLoading(false);
       if (result.businesses) {
@@ -66,11 +67,13 @@ function App() {
       longitude: longitude,
       latitude: latitude,
       term: "restaurant",
+      limit: 4,
     });
     const entertainmentResult = await Yelp.getYelpResult({ 
       longitude: longitude,
       latitude: latitude,
       term: "entertainment",
+      limit: 4,
     });
     setRestaurants(restaurantResult);
     setEntertainments(entertainmentResult);

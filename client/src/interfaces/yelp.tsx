@@ -3,4 +3,6 @@ export interface YelpQuery {
     term: string,
     longitude?: number,
     latitude?: number,
+    limit?: number,
+    offset?: number,
 }

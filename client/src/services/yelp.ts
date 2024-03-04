@@ -8,6 +8,8 @@ export const getYelpResult = async (query: YelpQuery):Promise<any> => {
         term: query.term,
         latitude: query.latitude,
         longitude: query.longitude,
+        limit: query.limit,
+        offset: query.offset,
     }
 
     const options = {
