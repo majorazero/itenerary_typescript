@@ -4,7 +4,7 @@ import {APIProvider, Map, Marker, useMap } from '@vis.gl/react-google-maps';
 import RowRenderer from "./rowRenderer";
 import Itenerary from "./itenerary";
 
-import { TripPageOptions, IteneraryOptions } from "../interfaces/tripPage";
+import { TripPageOptions, IteneraryOptions, RowRendererOptions } from "../interfaces/tripPage";
 import { route } from "../services/google";
 
 type TripPageProps = {
@@ -116,6 +116,20 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         handleSave,
     }
 
+    const restaurantOptions:RowRendererOptions = {
+        title: "Restaurant",
+        entries: restaurants.businesses,
+        waypoints,
+        setWaypoints
+    }
+
+    const entertainmentOptions:RowRendererOptions = {
+        title: "Entertaiment",
+        entries: restaurants.businesses,
+        waypoints,
+        setWaypoints
+    }
+
     return (
         <div className="container my-5">
             <div className="row">
@@ -136,12 +150,10 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
                 </div>
                 <div className="col-6 card py-3">
                     <div className="card">
-                        <h2>Restaurants</h2>
-                        <RowRenderer entries={restaurants.businesses} waypoints={waypoints} setWaypoints={setWaypoints}/>
+                        <RowRenderer {...restaurantOptions}/>
                     </div>
                     <div className="card">
-                        <h2>Entertainment</h2>
-                        <RowRenderer entries={entertainments.businesses} waypoints={waypoints} setWaypoints={setWaypoints}/>
+                        <RowRenderer {...entertainmentOptions}/>
                     </div>
                 </div>
             </div>

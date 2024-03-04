@@ -3,12 +3,13 @@ import { yelpStar } from "../services/yelp";
 import { Waypoint } from "../interfaces/googleMaps";
 
 type RowProps = {
+    title: string,
     entries: any[],
     waypoints: Waypoint[],
     setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
 }
 
-const RowRenderer: FunctionComponent<RowProps> = ({ entries, waypoints, setWaypoints }) => {
+const RowRenderer: FunctionComponent<RowProps> = ({ title, entries, waypoints, setWaypoints }) => {
     if (!entries) return null;
 
     const handleOnClick = (entry:any):void => {
@@ -32,6 +33,7 @@ const RowRenderer: FunctionComponent<RowProps> = ({ entries, waypoints, setWaypo
 
     return (
         <div>
+            <h2>{title}</h2>
             {entries.map((entry) => 
                 <div 
                     className={`card container entry-card py-2 ${hasBeenSelected(entry.id) && "selected"}`}

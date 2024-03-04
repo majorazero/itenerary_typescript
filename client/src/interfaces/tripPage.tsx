@@ -40,6 +40,13 @@ export interface IteneraryOptions {
     handleSave: () => void,
 }
 
+export interface RowRendererOptions {
+    title: string,
+    waypoints: Waypoint[],
+    entries: any[],
+    setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
+}
+
 export interface DirectionServiceRequest {
     waypoints: any[],
     travelMode: any,
