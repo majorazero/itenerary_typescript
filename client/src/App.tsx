@@ -24,7 +24,9 @@ function App() {
   const [hotels, setHotels] = useState<any[]>([]);
   const [hotel, setHotel] = useState<any>();
   const [restaurants, setRestaurants] = useState<any[]>([]);
+  const [restaurantsOffset, setRestaurantsOffset] = useState<number>(0);
   const [entertainments, setEntertainments] = useState<any[]>([]);
+  const [entertainmentsOffset, setEntertainmentsOffset] = useState<number>(0);
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
   const [tripLegs, setTripLegs] = useState<any[]>([]);
   const [preventReroute, setPreventReroute] = useState<boolean>(false);
