@@ -1,6 +1,9 @@
 import { YelpQuery } from "../interfaces/yelp";
 
-export const yelpStar = (rating: string): string => `/img/small_${rating}.png`;
+export const yelpStar = (rating: string): string => {
+    rating =( Math.round(parseFloat(rating)*2)/2).toString();
+    return `/img/small_${rating}.png`
+};
 
 export const getYelpResult = async (query: YelpQuery):Promise<any> => {
     const payload = {
