@@ -1,15 +1,16 @@
 import React, { FunctionComponent, SetStateAction, Dispatch } from "react";
 import { yelpStar } from "../services/yelp";
 import { Waypoint } from "../interfaces/googleMaps";
+import { RowRendererOptions } from "../interfaces/tripPage";
 
-type RowProps = {
-    title: string,
-    entries: any[],
-    waypoints: Waypoint[],
-    setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
-}
-
-const RowRenderer: FunctionComponent<RowProps> = ({ title, entries, waypoints, setWaypoints }) => {
+const RowRenderer: FunctionComponent<RowRendererOptions> = ({ 
+    title,
+    entries,
+    waypoints,
+    offset,
+    handleOffset,
+    setWaypoints 
+}) => {
     if (!entries) return null;
 
     const handleOnClick = (entry:any):void => {
@@ -34,6 +35,8 @@ const RowRenderer: FunctionComponent<RowProps> = ({ title, entries, waypoints, s
     return (
         <div>
             <h2>{title}</h2>
+            <button disabled={offset == 0} className="btn btn-primary" onClick={() => handleOffset(false)}>{"<"}</button>
+            <button className="btn btn-primary" onClick={() => handleOffset(true)}>{">"}</button>
             {entries.map((entry) => 
                 <div 
                     className={`card container entry-card py-2 ${hasBeenSelected(entry.id) && "selected"}`}

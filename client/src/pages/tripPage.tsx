@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import {APIProvider, Map, Marker, useMap } from '@vis.gl/react-google-maps';
 
+import * as Yelp from "../services/yelp";
+
 import RowRenderer from "./rowRenderer";
 import Itenerary from "./itenerary";
 
@@ -50,6 +52,12 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         currentDay,
         tripId,
         tripLegs,
+        restaurantsOffset,
+        entertainmentsOffset,
+        setRestaurants,
+        setEntertainments,
+        setRestaurantsOffset,
+        setEntertainmentsOffset,
         setTripLegs,
         setDays,
         setCurrentDay,
@@ -120,14 +128,54 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         title: "Restaurant",
         entries: restaurants.businesses,
         waypoints,
-        setWaypoints
+        setWaypoints,
+        offset: restaurantsOffset,
+        handleOffset: async (next: boolean) => {
+            let tempOffset = restaurantsOffset;
+            if (next) {
+                tempOffset++;
+            } else if (tempOffset) {
+                tempOffset--;
+            }
+
+            const restaurantResult = await Yelp.getYelpResult({ 
+                longitude: longitude,
+                latitude: latitude,
+                term: "restaurant",
+                limit: 4,
+                offset: tempOffset*4,
+              });
+
+            setRestaurants(restaurantResult)
+            setRestaurantsOffset(tempOffset)
+        }
     }
 
     const entertainmentOptions:RowRendererOptions = {
         title: "Entertaiment",
         entries: restaurants.businesses,
         waypoints,
-        setWaypoints
+        setWaypoints,
+        offset: entertainmentsOffset,
+        handleOffset: async (next: boolean) => {
+            let tempOffset = entertainmentsOffset;
+            if (next) {
+                tempOffset++;
+            } else if (tempOffset) {
+                tempOffset--;
+            }
+
+            const entertainmentResult = await Yelp.getYelpResult({ 
+                longitude: longitude,
+                latitude: latitude,
+                term: "entertainment",
+                limit: 4,
+                offset: tempOffset*4,
+              });
+            
+            setEntertainments(entertainmentResult);
+            setEntertainmentsOffset(tempOffset)
+        }
     }
 
     return (

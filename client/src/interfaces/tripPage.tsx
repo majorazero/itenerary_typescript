@@ -16,6 +16,12 @@ export interface TripPageOptions {
     currentDay: number,
     tripId: string|undefined,
     tripLegs: any[],
+    entertainmentsOffset: number,
+    restaurantsOffset: number,
+    setRestaurants: Dispatch<SetStateAction<any[]>>,
+    setEntertainments: Dispatch<SetStateAction<any[]>>,
+    setEntertainmentsOffset: Dispatch<SetStateAction<number>>,
+    setRestaurantsOffset: Dispatch<SetStateAction<number>>,
     setTripLegs: Dispatch<SetStateAction<any[]>>,
     setDays: Dispatch<SetStateAction<Waypoint[][]>>,
     setCurrentDay: Dispatch<SetStateAction<number>>,
@@ -44,7 +50,9 @@ export interface RowRendererOptions {
     title: string,
     waypoints: Waypoint[],
     entries: any[],
+    offset: number,
     setWaypoints: Dispatch<SetStateAction<Waypoint[]>>,
+    handleOffset: Function,
 }
 
 export interface DirectionServiceRequest {
