@@ -34,9 +34,18 @@ const RowRenderer: FunctionComponent<RowRendererOptions> = ({
 
     return (
         <div>
-            <h2>{title}</h2>
-            <button disabled={offset == 0} className="btn btn-primary" onClick={() => handleOffset(false)}>{"<"}</button>
-            <button className="btn btn-primary" onClick={() => handleOffset(true)}>{">"}</button>
+            <div className="container">
+                <div className="row">
+                    <h2 className="col-10">{title}</h2>
+                </div>
+                <div className="row">
+                    <span className="col-10">
+                        Page {offset + 1}
+                    </span>
+                    <button disabled={offset == 0} className="btn btn-primary col-1" onClick={() => handleOffset(false)}>{"<"}</button>
+                    <button className="btn btn-primary col-1" onClick={() => handleOffset(true)}>{">"}</button>
+                </div>
+            </div>
             {entries.map((entry) => 
                 <div 
                     className={`card container entry-card py-2 ${hasBeenSelected(entry.id) && "selected"}`}
