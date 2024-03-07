@@ -9,10 +9,6 @@ import Itenerary from "./itenerary";
 import { TripPageOptions, IteneraryOptions, RowRendererOptions } from "../interfaces/tripPage";
 import { route } from "../services/google";
 
-type TripPageProps = {
-    options: TripPageOptions;
-}
-
 // type MarkerColor = {
 //     background?: string,
 //     glyphColor?: string,
@@ -38,33 +34,31 @@ const Trip: FunctionComponent<any> = ({ options }) => {
     return null;
 }
 
-const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
+const TripPage: FunctionComponent<TripPageOptions> = ({ 
+    entertainments,
+    restaurants, 
+    waypoints, 
+    hotel,
+    preventReroute,
+    days,
+    currentDay,
+    tripId,
+    tripLegs,
+    restaurantsOffset,
+    entertainmentsOffset,
+    setRestaurants,
+    setEntertainments,
+    setRestaurantsOffset,
+    setEntertainmentsOffset,
+    setTripLegs,
+    setDays,
+    setCurrentDay,
+    setWaypoints, 
+    setPreventReroute,
+    handleSave,
+ }) => {
     const [directionService, setDirectionService] = useState<any>(null);
     const [directionRenderer, setDirectionRenderer] = useState<any>(null);
-
-    const { 
-        entertainments,
-        restaurants, 
-        waypoints, 
-        hotel,
-        preventReroute,
-        days,
-        currentDay,
-        tripId,
-        tripLegs,
-        restaurantsOffset,
-        entertainmentsOffset,
-        setRestaurants,
-        setEntertainments,
-        setRestaurantsOffset,
-        setEntertainmentsOffset,
-        setTripLegs,
-        setDays,
-        setCurrentDay,
-        setWaypoints, 
-        setPreventReroute,
-        handleSave,
-    } = options;
 
     // const markerRenderer = (locations: any[] = [], color?: MarkerColor) => {
     //     return locations.map((location) => {
@@ -101,9 +95,9 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [waypoints])
 
-    if (!options.hotel) return null;
+    if (!hotel) return null;
 
-    const { longitude, latitude } = options.hotel.coordinates;
+    const { longitude, latitude } = hotel.coordinates;
 
     const long = longitude || 10.00678;
     const lat = latitude || 53.54992;
@@ -194,7 +188,7 @@ const TripPage: FunctionComponent<TripPageProps> = ({ options }) => {
                             <Trip options={{ setDirectionRenderer, setDirectionService } }></Trip>
                         </APIProvider>
                     </div>
-                    <Itenerary options={iteneraryOptions}/>
+                    <Itenerary {...iteneraryOptions}/>
                 </div>
                 <div className="col-6 card py-3">
                     <div className="card">

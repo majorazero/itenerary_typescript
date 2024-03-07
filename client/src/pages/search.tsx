@@ -5,19 +5,19 @@ type SearchProps = {
     options: SearchOptions;
 }
 
-const SearchPage: FunctionComponent<SearchProps> = ({ options }) => {
-    const {
-        startDate,
-        endDate,
-        loading,
-        idQuery,
-        setIdQuery,
-        setQuery,
-        setStartDate,
-        setEndDate,
-        submit,
-        handleLoad
-    } = options;
+const SearchPage: FunctionComponent<SearchOptions> = ({ 
+    startDate,
+    endDate,
+    loading,
+    idQuery,
+    query,
+    setIdQuery,
+    setQuery,
+    setStartDate,
+    setEndDate,
+    submit,
+    handleLoad
+ }) => {
     return (
         <div className="container card py-5">
             <div className="row">
@@ -36,7 +36,7 @@ const SearchPage: FunctionComponent<SearchProps> = ({ options }) => {
                 <div className="row">
                     <div className="col-12">
                         <h2>Destination</h2>
-                        <input value={options.query} onChange={(e) => setQuery(e.target.value)}></input>
+                        <input value={query} onChange={(e) => setQuery(e.target.value)}></input>
                     </div>
                 </div>
                 <div className="row">
@@ -60,7 +60,7 @@ const SearchPage: FunctionComponent<SearchProps> = ({ options }) => {
                         <button
                             onClick={submit}
                             disabled={loading}
-                            className="btn btn-rounded btn-primary w-100">{options.loading ? "Loading..." : "Submit" }</button>
+                            className="btn btn-rounded btn-primary w-100">{loading ? "Loading..." : "Submit" }</button>
                     </div>
                 </div>
             </div>

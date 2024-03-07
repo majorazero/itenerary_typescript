@@ -168,9 +168,9 @@ function App() {
 
   return (
     <div className="App app-background py-5">
-      <TripPage options={tripPageOptions} />
-      <Search options={searchOptions} />
-      <HotelCards options={hotelCardsOptions} />
+      <TripPage {...tripPageOptions} />
+      <Search {...searchOptions} />
+      <HotelCards {...hotelCardsOptions} />
     </div>
   );
 }

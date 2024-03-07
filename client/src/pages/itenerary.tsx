@@ -3,27 +3,21 @@ import { Waypoint } from "../interfaces/googleMaps";
 import { IteneraryOptions } from "../interfaces/tripPage";
 import { route } from "../services/google";
 
-type IteneraryProps = {
-    options: IteneraryOptions
-}
-
-const Itenerary:FunctionComponent<IteneraryProps> = ({ options }) => {
-    const { 
-        waypoints,
-        hotel,
-        directionRenderer,
-        directionService,
-        days,
-        currentDay,
-        tripId,
-        tripLegs,
-        setTripLegs,
-        setWaypoints,
-        setCurrentDay,
-        setPreventReroute,
-        handleSave,
-    } = options;
-
+const Itenerary:FunctionComponent<IteneraryOptions> = ({ 
+    waypoints,
+    hotel,
+    directionRenderer,
+    directionService,
+    days,
+    currentDay,
+    tripId,
+    tripLegs,
+    setTripLegs,
+    setWaypoints,
+    setCurrentDay,
+    setPreventReroute,
+    handleSave,
+ }) => {
     const removeWaypoint = (index:number):void => {
         const tempWaypoint = [...waypoints];
         tempWaypoint.splice(index, 1);

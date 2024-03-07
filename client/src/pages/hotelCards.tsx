@@ -2,10 +2,6 @@ import React, { FunctionComponent } from "react";
 import { HotelCardsOptions } from "../interfaces/hotelCards";
 import { yelpStar } from "../services/yelp";
 
-type HotelCardsProps = {
-    options: HotelCardsOptions
-}
-
 const hotelCard: FunctionComponent<any> = (hotel, setHotel) => (
     <div className="card col-3 py-3 hotel-card" key={hotel.id}>
         <img className="hotel-pic mx-auto" src={hotel.image_url} alt={`Location at ${hotel.name}`}></img>
@@ -21,8 +17,12 @@ const hotelCard: FunctionComponent<any> = (hotel, setHotel) => (
     </div>
 )
 
-const hotelCards: FunctionComponent<HotelCardsProps> = ({ options }) => {
-    if (options.errMsg) {
+const hotelCards: FunctionComponent<HotelCardsOptions> = ({ 
+    errMsg,
+    hotels,
+    setHotel
+ }) => {
+    if (errMsg) {
         return (
             <div className="container card py-5">
                 <div className="row">
@@ -36,11 +36,11 @@ const hotelCards: FunctionComponent<HotelCardsProps> = ({ options }) => {
             </div>
         )
     }
-    if (!options.hotels.length) return null;
+    if (!hotels.length) return null;
     return (
         <div className="container py-5 mw-100">
             <div className="row">
-              {options.hotels.map((hotel: any) => hotelCard(hotel, options.setHotel))}
+              {hotels.map((hotel: any) => hotelCard(hotel, setHotel))}
             </div>
         </div>
     )
