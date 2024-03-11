@@ -175,7 +175,7 @@ const TripPage: FunctionComponent<TripPageOptions> = ({
     return (
         <div className="container my-5">
             <div className="row">
-                <div className="col-6 card">
+                <div className="col-12 col-md-6 card py-3">
                     <div className="map p-3">
                         <APIProvider apiKey={process.env.REACT_APP_GOOGLE_API_KEY || ""}>
                             <Map 
@@ -190,7 +190,7 @@ const TripPage: FunctionComponent<TripPageOptions> = ({
                     </div>
                     <Itenerary {...iteneraryOptions}/>
                 </div>
-                <div className="col-6 card py-3">
+                <div className="col-12 col-md-6 card py-3">
                     <div className="card">
                         <RowRenderer {...restaurantOptions}/>
                     </div>

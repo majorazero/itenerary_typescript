@@ -36,7 +36,10 @@
 }
 
 .map {
-  height: 50vw;
+  height: 100vw;
+  @media (min-width: global.$mobile-medium) {
+    height: 50vw;
+  }
 }
 
 .entry-card {

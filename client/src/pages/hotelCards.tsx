@@ -3,7 +3,7 @@ import { HotelCardsOptions } from "../interfaces/hotelCards";
 import { yelpStar } from "../services/yelp";
 
 const hotelCard: FunctionComponent<any> = (hotel, setHotel) => (
-    <div className="card col-3 py-3 hotel-card" key={hotel.id}>
+    <div className="card col-12 col-md-3 py-3 hotel-card" key={hotel.id}>
         <img className="hotel-pic mx-auto" src={hotel.image_url} alt={`Location at ${hotel.name}`}></img>
         <h5 className="hotel-name">{hotel.name}</h5>
         <h6 className="hotel-price">{hotel.price}</h6>

@@ -26,7 +26,7 @@ const SearchPage: FunctionComponent<SearchOptions> = ({
                 </div>
             </div>
             <div className="row">
-                <div className="col-6 text-start">
+                <div className="col-12 col-md-6 text-start">
                     <input value={idQuery} onChange={(e) => setIdQuery(e.target.value)} placeholder="Trip Id..." className="mx-3"/>
                     <button className='btn btn-primary' onClick={handleLoad}>Load Trip</button>
                 </div>

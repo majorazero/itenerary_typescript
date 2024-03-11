@@ -129,7 +129,7 @@ const Itenerary:FunctionComponent<IteneraryOptions> = ({
 
     return (
         <div className="container">
-            <h2>Itenerary</h2>
+            <h2 className="d-none d-md-block">Itenerary</h2>
             {tripId && <small>Trip Saved! ID: {tripId}</small>}
             <div className="row my-3">
                 <div className='col-4'>
