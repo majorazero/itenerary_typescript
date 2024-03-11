@@ -1,3 +1,5 @@
+@use 'global';
+
 .App {
   text-align: center;
 }
@@ -5,7 +7,11 @@
 .app-background {
   background-image: url("https://images.unsplash.com/photo-1433838552652-f9a46b332c40?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   background-size: cover;
-  min-height: 100vw;
+  min-height: 300vw;
+  @media (min-width: global.$mobile-medium) {
+    background-size: cover;
+    min-height: 100vw;
+  }
 }
 
 .error-img {
@@ -35,14 +41,14 @@
 
 .entry-card {
   transition: 0.3s;
-}
-.entry-card:hover {
-  background-color: #BC4F5E;
-}
-.endpoint-card {
-  background-color: #BED685;
+  &:hover {
+    background-color: global.$itenerary-red;
+  }
 }
 
-.entry-card.selected {
-  background-color: #BC4F5E;
+.endpoint-card {
+  background-color: global.$itenerary-green;
+  &.selected {
+    background-color: global.$itenerary-red;
+  }
 }
